@@ -5,10 +5,6 @@ import promoRouter from './promo.route'
 
 const router = Router()
 
-router.get('/', (_req, res) => {
-  res.send('Hello World!')
-})
-
 router.get('/health', (req, res) => {
   res.status(200).json({
     success: true,

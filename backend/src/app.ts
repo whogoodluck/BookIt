@@ -13,7 +13,11 @@ app.use(express.json())
 app.use(cors())
 app.use(morgan('tiny'))
 
-app.use('/', router)
+router.get('/', (_req, res) => {
+  res.send('Hello World!')
+})
+
+app.use('/api', router)
 
 app.use(unknownEndpoint)
 
