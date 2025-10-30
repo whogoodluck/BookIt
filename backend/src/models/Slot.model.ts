@@ -1,7 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose'
 
 export interface ISlot extends Document {
-  experienceId: mongoose.Types.ObjectId
+  experience: mongoose.Types.ObjectId
   date: Date
   time: string
   capacity: number
