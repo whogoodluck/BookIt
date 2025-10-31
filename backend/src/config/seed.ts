@@ -141,14 +141,14 @@ const generateSlots = (experienceId: string) => {
   const today = new Date()
   const times = ['09:00 AM', '11:00 AM', '02:00 PM', '04:00 PM', '06:00 PM']
 
-  // Generate slots for next 14 days
-  for (let i = 0; i < 14; i++) {
+  // Generate slots for next 4 days
+  for (let i = 0; i < 4; i++) {
     const slotDate = new Date(today)
     slotDate.setDate(today.getDate() + i)
     slotDate.setHours(0, 0, 0, 0)
 
-    // Generate 3-5 random time slots per day
-    const numSlots = Math.floor(Math.random() * 3) + 3
+    // Generate 2-3 random time slots per day
+    const numSlots = Math.floor(Math.random() * 2) + 2
     const shuffledTimes = times.sort(() => Math.random() - 0.5).slice(0, numSlots)
 
     shuffledTimes.forEach(time => {

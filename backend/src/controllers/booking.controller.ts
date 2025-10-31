@@ -16,6 +16,19 @@ async function createBooking(req: Request, res: Response, next: NextFunction) {
       promoCodeUsed,
     } = req.body
 
+    if (
+      !slotId ||
+      !experienceId ||
+      !fullName ||
+      !email ||
+      !quantity ||
+      !subtotal ||
+      !taxes ||
+      !totalAmount
+    ) {
+      throw new HttpError(400, 'Missing required fields')
+    }
+
     const booking = await bookingService.createBooking({
       slotId,
       experienceId,

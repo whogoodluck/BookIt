@@ -1,13 +1,21 @@
 import { Link } from 'react-router-dom'
 import type { Experience } from '../types/experience'
 
-function ExperienceCard({ experience }: { experience: Experience }) {
+interface ExperienceCardProps {
+  experience: Experience
+}
+
+function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
     <div
       key={experience.id}
       className='w-full grow overflow-hidden rounded-xl bg-[#F0F0F0] md:max-w-[380px]'
     >
-      <img src={experience.imageUrl} alt={experience.name} className='h-[230px] w-full' />
+      <img
+        src={experience.imageUrl}
+        alt={experience.name}
+        className='h-[230px] w-full object-cover'
+      />
       <div className='flex flex-col gap-5 px-4 py-3'>
         <div className='flex items-center justify-between'>
           <h1 className='text-[16px] font-medium'>{experience.name}</h1>

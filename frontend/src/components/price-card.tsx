@@ -1,11 +1,21 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { Experience } from '../types/experience'
+import type { Slot } from '../types/slot'
+import Button from './common/button'
 
-function PriceCard({ experience }: { experience: Experience }) {
+interface PriceCardProps {
+  experience: Experience
+  slot: Slot | null
+}
+
+function PriceCard({ experience, slot }: PriceCardProps) {
   const [quantity, setQuantity] = useState(1)
 
+  const navigate = useNavigate()
+
   const handleIncrease = () => {
-    if (quantity < 5) {
+    if (slot && quantity < slot.capacity - slot.booked) {
       setQuantity(prevQuantity => prevQuantity + 1)
     }
   }
@@ -60,9 +70,13 @@ function PriceCard({ experience }: { experience: Experience }) {
         </div>
       </div>
 
-      <button className='w-full rounded-lg bg-[#FFD643] px-5 py-3 text-base font-medium hover:bg-[#FFD643]/80'>
-        Confirm
-      </button>
+      <Button
+        text='Confirm'
+        disabled={!slot}
+        type='button'
+        className='mt-4'
+        onClick={() => navigate('/checkout', { state: { experience, slot, quantity } })}
+      />
     </div>
   )
 }

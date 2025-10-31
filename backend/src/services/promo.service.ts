@@ -21,7 +21,7 @@ const promoCodes: PromoCode[] = [
     maxDiscount: 1000,
   },
   {
-    code: 'FLAT50',
+    code: 'FLAT100',
     type: 'fixed',
     value: 50,
     minAmount: 1000,
@@ -62,8 +62,8 @@ function validatePromoCode(code: string, subtotal: number): PromoValidationResul
 
   return {
     valid: true,
-    discount: Math.round(discount * 100) / 100,
-    message: `Promo code applied successfully! You saved ₹${discount}`,
+    discount: Math.round(Math.round(discount * 100) / 100),
+    message: `Promo code applied successfully! You saved ₹${Math.round(discount)}`,
     code: promo.code,
   }
 }
