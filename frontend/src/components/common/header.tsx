@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import { toast } from 'sonner'
 import { useExperience } from '../../contexts/experience-context'
 import { getExperiences } from '../../services/experience'
@@ -8,7 +8,9 @@ function Header() {
   const [searchText, setSearchText] = useState('')
   const { setExperiences, setIsLoading } = useExperience()
 
-  const handleSearch = async () => {
+  const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
     try {
       setIsLoading(true)
       const res = await getExperiences(searchText)
@@ -23,7 +25,7 @@ function Header() {
   return (
     <header className='flex items-center justify-between px-2 py-4 shadow-lg md:px-8 lg:px-12 xl:px-[124px]'>
       <Logo />
-      <div className='flex items-center space-x-2.5'>
+      <form onSubmit={handleSearch} className='flex items-center space-x-2.5'>
         <input
           type='text'
           className='w-full max-w-[340px] rounded-sm bg-[#EDEDED] px-4 py-3 ring-0 outline-0'
@@ -31,12 +33,12 @@ function Header() {
           onChange={e => setSearchText(e.target.value)}
         />
         <button
-          onClick={handleSearch}
+          type='submit'
           className='rounded-lg bg-[#FFD643] px-3 py-3 hover:bg-[#FFD643]/80 md:px-5'
         >
           Search
         </button>
-      </div>
+      </form>
     </header>
   )
 }
