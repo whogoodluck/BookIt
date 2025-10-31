@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { getExperienceById, getExperiences } from '../services/experience'
 
-export function useGetExperiences() {
+export function useGetExperiences(text?: string) {
   return useQuery({
     queryKey: ['experiences'],
-    queryFn: getExperiences,
+    queryFn: () => getExperiences(text),
   })
 }
 

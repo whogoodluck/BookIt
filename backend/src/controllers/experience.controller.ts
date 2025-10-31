@@ -1,11 +1,25 @@
+import { IExperience } from '@/models/Experience.model'
 import { NextFunction, Request, Response } from 'express'
+import { FilterQuery } from 'mongoose'
 import experienceService from '../services/experience.service'
 import slotService from '../services/slot.service'
 import { HttpError } from '../utils/http-error'
 
-async function getAllExperiences(_req: Request, res: Response, next: NextFunction) {
+async function getAllExperiences(req: Request, res: Response, next: NextFunction) {
   try {
-    const experiences = await experienceService.getAllExperiences()
+    const { search } = req.query
+
+    const filters: FilterQuery<IExperience> = {}
+
+    if (search && typeof search === 'string') {
+      filters.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { location: { $regex: search, $options: 'i' } },
+      ]
+    }
+
+    const experiences = await experienceService.getAllExperiences(filters)
     res.status(200).json({
       success: true,
       data: experiences,

@@ -1,16 +1,13 @@
 import Loading from '../components/common/loading'
 import ExperienceCard from '../components/experience-card'
-import { useGetExperiences } from '../hooks/useExperience'
-import type { Experience } from '../types/experience'
+import { useExperience } from '../contexts/experience-context'
 
 function Home() {
-  const { data, isPending } = useGetExperiences()
+  const { experiences, isLoading } = useExperience()
 
-  if (isPending) {
+  if (isLoading) {
     return <Loading />
   }
-
-  const experiences: Experience[] = data.data || []
 
   return (
     <section className='py-4 md:py-8 lg:py-12'>
